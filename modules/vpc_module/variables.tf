@@ -1,3 +1,11 @@
+output "consul_private_ip" {
+  value = "${aws_instance.consulinstance.private_ip}"
+}
+
+output "consul_public_ip" {
+  value = "${aws_instance.consulinstance.public_ip}"
+}
+
 variable "whitelist_cidr_blocks" {
   type = "list"
 }

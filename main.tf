@@ -50,7 +50,9 @@ module "pipeline_ecs" {
   high_port             = 9000
   ecs_params            = "${var.ecs_params}"
   cloudwatch_log_handle = "${module.pipeline_cloudwatch.cw_handle[0]}"
-  alb_target_groups     = "${list(var.thttpd_definition)}"
+
+  #  alb_target_groups     = "${list(var.thttpd_definition,var.pp_webapp_definition,var.mongo_definition)}"
+  alb_target_groups = ["${var.thttpd_definition}", "${var.pp_webapp_definition}", "${var.mongo_definition}"]
 }
 
 module "pipeline_vpn" {

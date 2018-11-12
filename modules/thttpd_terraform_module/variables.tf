@@ -1,5 +1,3 @@
-
-
 variable "stack_details" {
   type = "map"
 }

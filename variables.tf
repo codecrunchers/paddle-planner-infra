@@ -61,3 +61,19 @@ variable "pipeline_availability_zones" {
 variable "thttpd_definition" {
   type = "map"
 }
+
+variable "mongo_definition" {
+  type = "map"
+}
+
+variable "pp_webapp_definition" {
+  type = "map"
+}
+
+variable "consul_definition" {
+  type = "map"
+}
+
+variable "registrator_definition" {
+  type = "map"
+}
