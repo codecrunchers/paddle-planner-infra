@@ -1,10 +1,4 @@
-output "consul_private_ip" {
-  value = "${aws_instance.consulinstance.private_ip}"
-}
-
-output "consul_public_ip" {
-  value = "${aws_instance.consulinstance.public_ip}"
-}
+variable "efs_mount_dns" {}
 
 variable "whitelist_cidr_blocks" {
   type = "list"

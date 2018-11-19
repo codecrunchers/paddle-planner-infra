@@ -12,4 +12,4 @@ docker run -d --restart=always -p 8300:8300 -p 8301:8301 -p 8301:8301/udp \
     --name consul-server gliderlabs/consul agent -server -bootstrap \
     -dc "${vpc_region}" \
     -advertise $(curl -s http://169.254.169.254/latest/meta-data/local-ipv4) \
-    -ui-dir "/ui" -data-dir "/data" -recursor "$DNS_UPSTREAM"
+    -ui-dir "/efs/consul/ui" -data-dir "/efs/consul" -recursor "$DNS_UPSTREAM"

@@ -23,3 +23,11 @@ resource "aws_eip" "vpn" {
   instance = "${aws_instance.vpn.id}"
   vpc      = true
 }
+
+resource "aws_route53_record" "secret" {
+  zone_id = "${aws_route53_zone.main.zone_id}"
+  name    = "secret.${var.dns_zone}"
+  type    = "A"
+  ttl     = "300"
+  records = ["${aws_instance.vpn.public_ip}"]
+}

@@ -5,10 +5,10 @@
         "memoryReservation": ${memory},
         "name": "${container_name}",
         "command": [
+            "agent",
             "-join",
             "${consul_ip}",
-            "-dc",
-            "${region}"
+            "-client_addr=0.0.0.0"
         ],
         "logConfiguration": {
             "logDriver": "awslogs",

@@ -6,6 +6,7 @@ module "pipeline_vpc" {
   vpc_private_subnet_cidr_blocks = "${var.pipeline_private_subnet_cidr_blocks}"
   vpc_public_subnet_cidr_blocks  = "${var.pipeline_public_subnet_cidr_blocks}"
   vpc_availability_zones         = "${var.pipeline_availability_zones}"
+  efs_mount_dns                  = "${module.pipeline_storage.efs_mount_dns}"
   nat_gateway_ids                = "${module.nat.instance_ids}"
   whitelist_cidr_blocks          = "${var.pipeline_external_access_cidr_block}"
   iam_ecs                        = "${module.pipeline_ecs.iam_ecs}"

@@ -39,10 +39,25 @@ resource "aws_security_group" "bastion" {
     ]
   }
 
+  egress {
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "udp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   tags {
     Name        = "Security for Debug Box"
     stack_id    = "${var.stack_details["stack_id"]}"
     stack_name  = "${var.stack_details["stack_name"]}"
     Environment = "${var.stack_details["env"]}"
   }
+}
+
+resource "aws_route53_record" "bastion" {
+  zone_id = "${aws_route53_zone.main.zone_id}"
+  name    = "bastion.${var.dns_zone_name}"
+  type    = "A"
+  ttl     = "300"
+  records = ["${aws_instance.bastion.private_ip}"]
 }

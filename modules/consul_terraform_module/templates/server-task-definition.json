@@ -1,33 +1,77 @@
 [
-    {
-        "essential": true,
-        "image": "${image_url}",
-        "memoryReservation": ${memory},
-        "name": "${container_name}",
-        "networkMode": "host",
-        "portMappings": [
-        {
-          "hostPort": 53,
-          "containerPort": 53,
-          "protocol": "udp"
-        },
-        {
-          "hostPort": 8500,
-          "containerPort": 8500,
-          "protocol": "tcp"
-        },
-        {
-          "hostPort": 8400,
-          "containerPort": 8400,
-          "protocol": "tcp"
-        }
-      ],
-        "command": [
-            "agent",
-            "-server",
-            "-ui"
-        ]
-    }
+  {
+    "essential": true,
+    "image": "${image_url}",
+    "memoryReservation": ${memory},
+    "name": "${container_name}",
+    "networkMode": "host",
+    "portMappings": [
+      {
+        "hostPort": 53,
+        "containerPort": 53,
+        "protocol": "udp"
+      },
+      {
+        "hostPort": 53,
+        "containerPort": 53,
+        "protocol": "tcp"
+      },
+
+
+      {
+        "hostPort": 8400,
+        "containerPort": 8400,
+        "protocol": "tcp"
+      },
+      {
+        "hostPort": 8500,
+        "containerPort": 8500,
+        "protocol": "tcp"
+      },
+      {
+        "hostPort": 8302,
+        "containerPort": 8302,
+        "protocol": "tcp"
+      }
+      ,
+      {
+        "hostPort": 8301,
+        "containerPort": 8301,
+        "protocol": "tcp"
+      },
+      {
+        "hostPort": 8301,
+        "containerPort": 8301,
+        "protocol": "udp"
+      }
+
+      ,
+      {
+        "hostPort": 8300,
+        "containerPort": 8300,
+        "protocol": "tcp"
+      }
+
+    ],
+
+    "mountPoints": [
+      {
+        "sourceVolume": "data",
+        "containerPath": "/data/consul"
+      }
+    ],
+
+    "command": [
+      "agent",
+      "-server",
+      "-ui",
+      "-dc=${aws_region}",
+      "-data-dir=/efs/consul",
+      "-ui-dir=/efs/consul",
+      "-client=0.0.0.0",
+      "-advertise=127.0.0.1"
+    ]
+  }
 ]
 
 

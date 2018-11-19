@@ -47,12 +47,12 @@ mongo_definition = {
 }
 
 consul_definition = {
-  docker_image_tag           = "492333042402.dkr.ecr.eu-west-1.amazonaws.com/tmp-pipeline/consul"
+  docker_image_tag           = "consul"
   name                       = "consul"
   context                    = "consul"
-  host_port_to_expose        = "8500"                                                             #ALB
-  container_port_to_expose   = "8500"                                                             #ALB
-  instance_memory_allocation = "512"
+  host_port_to_expose        = "-1"     #ALB
+  container_port_to_expose   = "-1"     #ALB
+  instance_memory_allocation = "128"
   instance_count             = "1"
 }
 
@@ -62,6 +62,6 @@ registrator_definition = {
   context                    = "registrator"
   host_port_to_expose        = ""                                                                      #Don't
   container_port_to_expose   = ""
-  instance_memory_allocation = "512"
+  instance_memory_allocation = "128"
   instance_count             = "1"
 }

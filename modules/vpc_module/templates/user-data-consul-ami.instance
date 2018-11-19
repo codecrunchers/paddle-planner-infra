@@ -18,18 +18,19 @@ mount -a
 
 --==BOUNDARY==
 Content-Type: text/x-shellscript; charset="us-ascii"
-cloud-init-per once mkdir_jh mkdir /efs/mongo
-cloud-init-per once chown_jh chgrp ec2-user /efs/mongo
-cloud-init-per once chown_jh chmod g+rwx /efs/mongo
-
 cloud-init-per once mkdir_jh mkdir /efs/consul
 cloud-init-per once chown_jh chgrp ec2-user /efs/consul
-cloud-init-per once chown_jh chmod g+rwx /efs/consul
+cloud-init-per once chown_jh chmod g+rwx /efs/* -R
 
 
 
 #!/bin/bash
 # Set any ECS agent configuration options
 echo "ECS_CLUSTER=${p9_env}-${cluster_name}" >> /etc/ecs/ecs.config
+sudo yum -y update
+sudo yum -y install aws-cli
+HOST_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
+docker run -d --restart=always --net=host -e CONSUL_ALLOW_PRIVILEGED_PORTS=true -v /efs/consul/:/consul/data consul:latest agent -server -bootstrap -datacenter=us-west-1 -client="$HOST_IP" -advertise="$HOST_IP" -ui -http-port=8500 -data-dir=/consul/data/consul-data/ -recursor=10.171.0.2 -dns-port=53
 
---==BOUNDARY==--
+
+
