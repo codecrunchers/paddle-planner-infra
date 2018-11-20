@@ -78,6 +78,22 @@ resource "aws_security_group" "ecs_instance_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    protocol  = "tcp"
+    from_port = 8300
+    to_port   = 8302
+
+    cidr_blocks = ["${var.vpc_cidr}"]
+  }
+
+  ingress {
+    protocol  = "udp"
+    from_port = 8300
+    to_port   = 8302
+
+    cidr_blocks = ["${var.vpc_cidr}"]
+  }
+
   tags {
     Name        = "ECS/EC2 Allow Range ${var.low_port} to ${var.high_port}"
     stack_id    = "${var.stack_details["stack_id"]}"

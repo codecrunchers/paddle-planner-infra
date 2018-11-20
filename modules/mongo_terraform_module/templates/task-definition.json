@@ -1,0 +1,32 @@
+[
+  {
+    "essential": true,
+    "image": "${image_url}",
+    "name": "${container_name}",
+    "memoryReservation": ${memory},
+    "dnsServers": [
+      "${consul_private_ip}"
+    ],
+    "portMappings": [
+      {
+        "containerPort": ${container_port},
+        "hostPort": ${host_port}
+      }
+    ],
+    "environment": [
+      {
+        "name":"SECRET_PATH",
+        "value":"/dev/paddle-planner/config/secrets/web"
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${log_group_name}",
+        "awslogs-region": "${log_group_region}"
+      }
+    }
+  }
+]
+
+

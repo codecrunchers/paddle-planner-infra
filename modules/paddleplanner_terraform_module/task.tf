@@ -1,9 +1,9 @@
-resource "aws_ecs_task_definition" "nginx" {
+resource "aws_ecs_task_definition" "pp_webapp" {
   family                = "${format("%s_%s_family", var.stack_details["env"],lookup(var.pipeline_definition,"name"))}"
-  container_definitions = "${data.template_file.nginx_task_definition_file.rendered}"
+  container_definitions = "${data.template_file.task_definition_file.rendered}"
 }
 
-data "template_file" "nginx_task_definition_file" {
+data "template_file" "task_definition_file" {
   template = "${file("${path.module}/templates/task-definition.json")}"
 
   vars {

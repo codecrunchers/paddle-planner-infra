@@ -22,14 +22,15 @@ cloud-init-per once mkdir_jh mkdir /efs/mongo
 cloud-init-per once chown_jh chgrp ec2-user /efs/mongo
 cloud-init-per once chown_jh chmod g+rwx /efs/mongo
 
-cloud-init-per once mkdir_jh mkdir /efs/consul
-cloud-init-per once chown_jh chgrp ec2-user /efs/consul
-cloud-init-per once chown_jh chmod g+rwx /efs/consul
-
-
 
 #!/bin/bash
 # Set any ECS agent configuration options
 echo "ECS_CLUSTER=${p9_env}-${cluster_name}" >> /etc/ecs/ecs.config
+HOST_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
+docker run -d -p 8500:8500 -p 8302:8302/udp -p 8301:8301/udp  -p 8302:8302/tcp -p 8301:8301/tcp  consul agent -advertise "$HOST_IP" -join consul.paddle-planner.com -datacenter us-west-1
+docker run -d --restart=always --net=host -v /var/run/docker.sock:/tmp/docker.sock gliderlabs/registrator:latest consul://"$HOST_IP":8500
+
+
+
 
 --==BOUNDARY==--

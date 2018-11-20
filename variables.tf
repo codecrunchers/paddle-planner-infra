@@ -22,11 +22,13 @@ variable "ecs_params" {
   type = "map"
 
   default = {
-    min_instances     = 1
-    max_instances     = 3
-    desired_instances = 1
-    ecs_name          = "PaddlePlanner"
-    instance_type     = "t2.micro"
+    min_instances       = 1
+    host_port_to_expose = "-1"            #ALB
+    host_port_to_expose = "-1"            #ALB
+    max_instances       = 3
+    desired_instances   = 1
+    ecs_name            = "PaddlePlanner"
+    instance_type       = "t2.micro"
   }
 }
 
@@ -67,13 +69,5 @@ variable "mongo_definition" {
 }
 
 variable "pp_webapp_definition" {
-  type = "map"
-}
-
-variable "consul_definition" {
-  type = "map"
-}
-
-variable "registrator_definition" {
   type = "map"
 }

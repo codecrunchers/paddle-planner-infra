@@ -42,6 +42,7 @@ module "pipeline_ecs" {
   ssh_key            = "${var.key_name}"
   stack_details      = "${var.stack_details}"
   vpc_cidr           = "${var.pipeline_cidr_block}"
+  consul_ip          = "${module.pipeline_vpc.consul_private_ip}"
 
   whitelist_cidr_blocks = [
     "${formatlist("%s/32", module.nat.private_ips)}",

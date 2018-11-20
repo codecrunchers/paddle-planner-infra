@@ -48,6 +48,7 @@ module "thttpd" {
     cluster_id                = "${module.pipeline_ecs.cluster_id}"                                     #TODO: Refactor these maps, messy
     iam_role                  = "${module.pipeline_ecs.iam_role}"
     cw_app_pipeline_log_group = "${var.stack_details["stack_name"]}/${var.stack_details["env"]}/thttpd"
+    consul_private_ip         = "${module.pipeline_vpc.consul_private_ip}"
   }
 
   target_group_id = "${module.pipeline_ecs.target_group_id[0]}" #thttpd (index into list)
@@ -64,6 +65,7 @@ module "pp_webapp" {
     cluster_id                = "${module.pipeline_ecs.cluster_id}"                                        #TODO: Refactor these maps, messy
     iam_role                  = "${module.pipeline_ecs.iam_role}"
     cw_app_pipeline_log_group = "${var.stack_details["stack_name"]}/${var.stack_details["env"]}/pp_webapp"
+    consul_private_ip         = "${module.pipeline_vpc.consul_private_ip}"
   }
 
   target_group_id = "${module.pipeline_ecs.target_group_id[0]}" #thttpd (index into list)
@@ -80,6 +82,7 @@ module "mongo" {
     cluster_id                = "${module.pipeline_ecs.cluster_id}"                                    #TODO: Refactor these maps, messy
     iam_role                  = "${module.pipeline_ecs.iam_role}"
     cw_app_pipeline_log_group = "${var.stack_details["stack_name"]}/${var.stack_details["env"]}/mongo"
+    consul_private_ip         = "${module.pipeline_vpc.consul_private_ip}"
   }
 
   target_group_id = "${module.pipeline_ecs.target_group_id[0]}" #thttpd (index into list)
@@ -106,26 +109,26 @@ module "mongo" {
 # target_group_id = ""
 #}
 
-module "consul" {
-  source              = "modules/consul_terraform_module"
-  stack_details       = "${var.stack_details}"
-  pipeline_definition = "${var.consul_definition}"
-  docker_image_tag    = "${var.consul_definition["docker_image_tag"]}"
-  consul_private_ip   = "${module.pipeline_vpc.consul_private_ip}"
-  efs_mount_dns       = "${module.pipeline_storage.efs_mount_dns}"
-
-  ecs_details = {
-    cluster_id                = "${module.pipeline_ecs.cluster_id}"                                     #TODO: Refactor these maps, messy
-    iam_role                  = "${module.pipeline_ecs.iam_role}"
-    cw_app_pipeline_log_group = "${var.stack_details["stack_name"]}/${var.stack_details["env"]}/consul"
-    vpc_cidr_block            = "${module.pipeline_vpc.cidr_block}"
-    ecs_cluster               = "${module.pipeline_ecs.cluster_name}"
-    aws_account_id            = "${data.aws_caller_identity.current.account_id}"
-  }
-}
+#module "consul" {
+#  source              = "modules/consul_terraform_module"
+#  stack_details       = "${var.stack_details}"
+#  pipeline_definition = "${var.consul_definition}"
+#  docker_image_tag    = "${var.consul_definition["docker_image_tag"]}"
+#  consul_private_ip   = "${module.pipeline_vpc.consul_private_ip}"
+#  efs_mount_dns       = "${module.pipeline_storage.efs_mount_dns}"
+#
+#  ecs_details = {
+#    cluster_id                = "${module.pipeline_ecs.cluster_id}"                                     #TODO: Refactor these maps, messy
+#    iam_role                  = "${module.pipeline_ecs.iam_role}"
+#    cw_app_pipeline_log_group = "${var.stack_details["stack_name"]}/${var.stack_details["env"]}/consul"
+#    vpc_cidr_block            = "${module.pipeline_vpc.cidr_block}"
+#    ecs_cluster               = "${module.pipeline_ecs.cluster_name}"
+#    aws_account_id            = "${data.aws_caller_identity.current.account_id}"
+#  }
+#}
 
 module "pipeline_ecr" {
   source        = "modules/ecr_terraform_module"
-  registries    = ["pipeline.thttpd", "pp.webapp", "pp.mongo", "pp.consul"]
+  registries    = ["paddle-planner-thttpd", "paddle-planner-webapp", "paddle-planner-mongo", "paddle-planner-consul"]
   stack_details = "${var.stack_details}"
 }

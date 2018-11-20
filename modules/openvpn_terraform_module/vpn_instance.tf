@@ -25,7 +25,7 @@ resource "aws_eip" "vpn" {
 }
 
 resource "aws_route53_record" "secret" {
-  zone_id = "${aws_route53_zone.main.zone_id}"
+  zone_id = "${data.aws_route53_zone.main.zone_id}"
   name    = "secret.${var.dns_zone}"
   type    = "A"
   ttl     = "300"

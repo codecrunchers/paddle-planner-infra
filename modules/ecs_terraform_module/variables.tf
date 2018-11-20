@@ -1,3 +1,5 @@
+variable "consul_ip" {}
+
 variable "vpc_cidr" {}
 
 variable "stack_details" {

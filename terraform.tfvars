@@ -27,9 +27,9 @@ thttpd_definition = {
 }
 
 pp_webapp_definition = {
-  docker_image_tag           = "507358225127.dkr.ecr.us-west-1.amazonaws.com/dev.pp.webapp:latest"
+  docker_image_tag           = "507358225127.dkr.ecr.us-west-1.amazonaws.com/paddle-planner-webapp:latest"
   name                       = "webapp"
-  context                    = "pp_webapp"
+  context                    = "app"
   host_port_to_expose        = "8082"
   container_port_to_expose   = "4040"
   instance_memory_allocation = "512"
@@ -37,31 +37,29 @@ pp_webapp_definition = {
 }
 
 mongo_definition = {
-  docker_image_tag           = "507358225127.dkr.ecr.us-west-1.amazonaws.com/dev.pp.mongo:latest"
+  docker_image_tag           = "507358225127.dkr.ecr.us-west-1.amazonaws.com/paddle-planner-mongo:latest"
   name                       = "mongo"
   context                    = "mongo"
-  host_port_to_expose        = "8081"
+  host_port_to_expose        = "27017"
   container_port_to_expose   = "27017"
   instance_memory_allocation = "512"
   instance_count             = "1"
 }
 
-consul_definition = {
-  docker_image_tag           = "consul"
-  name                       = "consul"
-  context                    = "consul"
-  host_port_to_expose        = "-1"     #ALB
-  container_port_to_expose   = "-1"     #ALB
-  instance_memory_allocation = "128"
-  instance_count             = "1"
-}
+#consul_definition = {
+#  docker_image_tag           = "consul"
+#name                       = "consul"
+#context                    = "consul"
+#instance_memory_allocation = "128"
+#instance_count             = "1"
+#}
 
-registrator_definition = {
-  docker_image_tag           = "492333042402.dkr.ecr.eu-west-1.amazonaws.com/tmp-pipeline/registrator"
-  name                       = "registrator"
-  context                    = "registrator"
-  host_port_to_expose        = ""                                                                      #Don't
-  container_port_to_expose   = ""
-  instance_memory_allocation = "128"
-  instance_count             = "1"
-}
+
+#registrator_definition = {
+#  docker_image_tag           = "gliderlabs/registrator"
+#  name                       = "registrator"
+#  context                    = "registrator"
+#  instance_memory_allocation = "128"
+#  instance_count             = "1"
+#}
+
