@@ -60,10 +60,6 @@ variable "pipeline_availability_zones" {
   default = ["us-west-1a", "us-west-1b"]
 }
 
-variable "thttpd_definition" {
-  type = "map"
-}
-
 variable "mongo_definition" {
   type = "map"
 }

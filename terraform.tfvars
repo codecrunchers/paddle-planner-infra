@@ -16,24 +16,15 @@ vpn_instance_details = {
   key_name = "paddle-planner-new-launch-key"
 }
 
-thttpd_definition = {
-  docker_image_tag           = "gists/lighttpd"
-  name                       = "thttpd"
-  context                    = ""
-  host_port_to_expose        = "8080"
-  container_port_to_expose   = "80"
-  instance_memory_allocation = "512"
-  instance_count             = "1"
-}
-
 pp_webapp_definition = {
   docker_image_tag           = "507358225127.dkr.ecr.us-west-1.amazonaws.com/paddle-planner-webapp:latest"
   name                       = "webapp"
   context                    = "app"
-  host_port_to_expose        = "8082"
+  host_port_to_expose        = "8080"
   container_port_to_expose   = "4040"
-  instance_memory_allocation = "512"
+  instance_memory_allocation = "256"
   instance_count             = "1"
+  health_ckeck_uri           = "/auth/login"
 }
 
 mongo_definition = {
@@ -42,24 +33,6 @@ mongo_definition = {
   context                    = "mongo"
   host_port_to_expose        = "27017"
   container_port_to_expose   = "27017"
-  instance_memory_allocation = "512"
+  instance_memory_allocation = "256"
   instance_count             = "1"
 }
-
-#consul_definition = {
-#  docker_image_tag           = "consul"
-#name                       = "consul"
-#context                    = "consul"
-#instance_memory_allocation = "128"
-#instance_count             = "1"
-#}
-
-
-#registrator_definition = {
-#  docker_image_tag           = "gliderlabs/registrator"
-#  name                       = "registrator"
-#  context                    = "registrator"
-#  instance_memory_allocation = "128"
-#  instance_count             = "1"
-#}
-
