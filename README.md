@@ -18,8 +18,7 @@
 AWS Infra
 ![Paddle Planner](https://github.com/codecrunchers/paddle-planner-infra/blob/master/docs/Paddle-Planner-Infra.png "Paddle Planner Infra")
 
-## N.B. Change Passwords and configure/review security for public facing Pipeline components such as Jenkins/Nexus/Sonar
-
+## N.B. Change Passwords and configure/review security for services such as mongo
 ## Initial Setup
 ```bash
 export BUCKET_NAME="my.bucket.unique.id-$(uuidgen)"
