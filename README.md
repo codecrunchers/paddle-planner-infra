@@ -16,7 +16,7 @@
 * Secure keyless Key,Value store
 
 AWS Infra
-![Paddle Planner](docs/paddle-planner-infra.png "Paddle Planner Infra")
+![Paddle Planner](https://raw.githubusercontent.com/codecrunchers/paddle-planner-infra/master/docs/paddle-planner-infra.png "Paddle Planner Infra")
 
 ## N.B. Change Passwords and configure/review security for public facing Pipeline components such as Jenkins/Nexus/Sonar
 
